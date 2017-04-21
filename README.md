@@ -1,11 +1,11 @@
-# _doctorFinder_
+# _Doctor Finder_
 
-#### _doctorFinder, 04-21-2017_
+#### _Doctor Finder, 04-21-2017_
 
 #### By _**Janek Brandt**_
 
 ## Description
-_Example text for the description of the project_
+_This website simplifies the process of finding a doctor. A user can enter a medial issue and then receive a list of doctors in their area that can treat that issue. A user can also search for a doctor by name or by speciality._
 
 
 ## Specifications
@@ -17,8 +17,12 @@ _Example text for the description of the project_
 
 ## Setup/Installation Requirements
 
-* _Clone the repository_
-* _Run the following commands_
+* _The application requires an API Key from betterdoctor.com_
+* _Place your API key into a `.env` file in the root project directory. The file should contain the following._
+```
+exports.apiKey = "YOUR_API_KEY";
+```
+* _Run the following commands to install dependencies and build the application_
 ```
 npm install
 bower install
