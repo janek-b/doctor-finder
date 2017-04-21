@@ -2,14 +2,8 @@ var Doctor = require('../js/doctor.js').doctorModule;
 
 function displayDoctorList(doctorList) {
   doctorList.forEach(function(doctor) {
-    var education = "";
-    var specialties = "";
-    doctor.education.forEach(function(ed) {
-      education += '<dt>'+ed.degree+'</dt><dd>'+ed.school+'</dd>';
-    });
-    doctor.specialties.forEach(function(spec) {
-      specialties += ', ' + spec.name;
-    });
+    var education = doctor.education.reduce((acc, ed) => acc + '<dt>'+ed.degree+'</dt><dd>'+ed.school+'</dd>', "");
+    var specialties = doctor.specialties.reduce((acc, spec) => acc + ', ' + spec.name, "").slice(2);
     var newPatient;
     if(doctor.practices.filter(practice => (practice.newPatients)).map(practice => practice.newPatients).length > 0) {
       newPatient = '<span class="pull-right label label-success">Accepting new patients</span>';
@@ -25,7 +19,7 @@ function displayDoctorList(doctorList) {
         '</div>'+
         '<div class="media-body">'+
           '<h4 class="media-heading">'+doctor.name+', '+doctor.title+newPatient+'</h4>'+
-          '<p>'+specialties.slice(2)+'</p>'+
+          '<p>'+specialties+'</p>'+
           '<dl class="dl-horizontal">'+education+'</dl>'+
         '</div>'+
       '</li>');
