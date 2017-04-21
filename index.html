@@ -5,9 +5,43 @@
     <link rel="stylesheet" href="build/css/styles.css">
     <script src="build/js/vendor.min.js"></script>
     <script type="text/javascript" src="build/js/app.js"></script>
-    <title>doctorFinder</title>
+    <title>Doctor Finder</title>
   </head>
   <body>
-
+    <div class="container">
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+          <div class="page-header">
+            <h1>Doctor Finder</h1>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-5 col-md-offset-1">
+          <div class="input-group">
+            <span class="input-group-addon">
+              <span class="glyphicon glyphicon-map-marker"></span>
+              <input id="locate" type="checkbox">
+            </span>
+            <input type="text" class="form-control" id="location" placeholder="Enter location (optional)" value="45.5230622,-122.6764816">
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="input-group">
+            <input class="form-control" type="text" id="issue" placeholder="Search by issue" value="Headache">
+            <span class="input-group-btn">
+              <button id="findDoctorBtn" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+          <ul id="doctorList" class="media-list">
+            
+          </ul>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
