@@ -12,7 +12,8 @@ Doctor.prototype.findDoctorByIssue = function (location, issue) {
       foundDoctor.title = doctor.profile.title;
       foundDoctor.img = doctor.profile.image_url;
       foundDoctor.bio = doctor.profile.bio;
-      foundDoctor.specialties = doctor.specialties.map(specialty => specialty.name);
+      foundDoctor.specialties = doctor.specialties;
+      foundDoctor.education = doctor.educations;
       foundDoctor.practices = doctor.practices;
       doctors.push(foundDoctor);
     })
