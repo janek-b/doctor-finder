@@ -1,6 +1,7 @@
 var Doctor = require('../js/doctor.js').doctorModule;
 
 function displayDoctorList(doctorList, detailsPanel) {
+  $("#doctorList").empty();
   doctorList.forEach(function(doctor) {
     var education = doctor.education.reduce((acc, ed) => acc + `<dt>${ed.degree}</dt><dd>${ed.school}</dd>`, "");
     var specialties = doctor.specialties.reduce((acc, spec) => acc + `<span class="label label-default">${spec.name}</span> `, "");
@@ -22,6 +23,7 @@ function displayDoctorList(doctorList, detailsPanel) {
       $("#doctorSpec").html(specialties);
       $("#doctorBio").text(doctor.bio);
       $("#doctorEdu").html(education);
+      $("#doctorPrac").empty();
       doctor.practices.forEach(function(practice) {
         if (practice.newPatients) {
           var pracNewPatient = '<span class="label label-success">Accepting new patients</span>'
