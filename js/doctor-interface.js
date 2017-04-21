@@ -2,8 +2,8 @@ var Doctor = require('../js/doctor.js').doctorModule;
 
 function displayDoctorList(doctorList, detailsPanel) {
   doctorList.forEach(function(doctor) {
-    var education = doctor.education.reduce((acc, ed) => acc + '<dt>'+ed.degree+'</dt><dd>'+ed.school+'</dd>', "");
-    var specialties = doctor.specialties.reduce((acc, spec) => acc + '<span class="label label-default">'+spec.name+'</span> ', "");
+    var education = doctor.education.reduce((acc, ed) => acc + `<dt>${ed.degree}</dt><dd>${ed.school}</dd>`, "");
+    var specialties = doctor.specialties.reduce((acc, spec) => acc + `<span class="label label-default">${spec.name}</span> `, "");
     var newPatient;
     if(doctor.practices.filter(practice => (practice.newPatients)).map(practice => practice.newPatients).length > 0) {
       newPatient = '<span class="label label-success">Accepting new patients</span>';
@@ -43,19 +43,31 @@ function displayDoctorList(doctorList, detailsPanel) {
           '<h5>'+pracNewPatient+'</h5>'+
           '<dl class="dl-horizontal">'+phone+
             `<dt>Address</dt><dd>${practice.address.street} ${practice.address.city}, ${practice.address.state} ${practice.address.zip}</dd>`+
-          '</dl>'
-        )
-      })
-      console.log("all before", $("#doctors").height());
-      console.log("list before", $("#doctorList").height());
-
+          '</dl>');
+      });
       detailsPanel.toggle();
-      console.log("panel after", $("#details-panel").height());
-      console.log("all after", $("#doctors").height());
-      console.log("list after", $("#doctorList").height());
-    })
-
+    });
   });
+  resetBtn();
+}
+
+var resetBtn = function() {
+  $("#findDoctorBtn").html('<span class="glyphicon glyphicon-search"></span>');
+}
+
+var getLocation = function() {
+  var options = {
+    enableHighAccuracy: true,
+    timeout: 10 * 1000
+  };
+  return new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var location = `${position.coords.latitude}, ${position.coords.longitude}`;
+      resolve(location);
+    }, function(error) {
+      reject(error);
+    }, options)
+  })
 }
 
 $(function() {
@@ -65,8 +77,7 @@ $(function() {
     duration: 300,
     transition: 'ease',
     clickSelector: '.toggle-panel',
-    distanceX: '80%',
-    forceMinHeight: true,
+    distanceY: '80%',
     enableEscapeKey: true
   });
 
@@ -75,22 +86,15 @@ $(function() {
   })
 
   $("#findDoctorBtn").click(function() {
+    $(this).html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
     var issue = $("#issue").val();
     $("#issue").val("");
-    var location;
-    if ($("#locate").is(":checked")) {
-      // add browser get location
-    } else {
-      // add location validation
-      location = $("#location").val();
-      $("#location").val("");
-    }
     var doctorObj = new Doctor();
-    doctorObj.findDoctorByIssue(location, issue).done(function(results) {
-      displayDoctorList(results, detailsPanel);
-      console.log(results);
-    })
-
+    if (navigator.geolocation) {
+      getLocation().then(location => doctorObj.findDoctorByIssue(location, issue).done(results => displayDoctorList(results, detailsPanel)));
+    } else {
+      // add option to enter location manually
+    }
   })
 
 })
