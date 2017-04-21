@@ -11,23 +11,14 @@ function displayDoctorList(doctorList, detailsPanel) {
       newPatient = '<span class="label label-danger">Not accepting new patients</span>';
     };
 
-    $("#doctorList").append(
-      '<li class="media">'+
-        '<div class="media-left">'+
-          '<a href="#" class="toggle-panel">'+
-            '<img class="media-object" src="'+doctor.img+'" alt="thumbnail for doctor '+doctor.name+'">'+
-          '</a>'+
-        '</div>'+
-        '<div class="media-body">'+
-          '<h4 class="media-heading">'+doctor.name+', '+doctor.title+' '+newPatient+'</h4>'+
-          '<p>'+specialties+'</p>'+
-          '<dl class="dl-horizontal">'+education+'</dl>'+
-        '</div>'+
-      '</li>');
+    $("#doctorList").append(`<li class="media"><div class="media-left"><a href="#" class="toggle-panel">`+
+      `<img class="media-object" src="${doctor.img}" alt="thumbnail for doctor ${doctor.name}"></a></div>`+
+      `<div class="media-body"><h4 class="media-heading">${doctor.name}, ${doctor.title} ${newPatient}</h4>`+
+      `<p>${specialties}</p><dl class="dl-horizontal">${education}</dl></div></li>`);
 
     $('#doctorList .toggle-panel').last().click(function() {
-      $("#doctorImg").html('<img src="'+doctor.img+'" alt="thumbnail for doctor '+doctor.name+'">');
-      $("#doctorName").text(doctor.name+', '+ doctor.title);
+      $("#doctorImg").html(`<img src="${doctor.img}" alt="thumbnail for doctor ${doctor.name}">`);
+      $("#doctorName").text(`${doctor.name}, ${doctor.title}`);
       $("#doctorSpec").html(specialties);
       $("#doctorBio").text(doctor.bio);
       $("#doctorEdu").html(education);
@@ -38,12 +29,8 @@ function displayDoctorList(doctorList, detailsPanel) {
           var pracNewPatient = '<span class="label label-danger">Not accepting new patients</span>'
         }
         var phone = practice.phone.reduce((acc, phone) => acc + `<dt>${phone.type}</dt><dd>${phone.number}</dd>`, "");
-        $("#doctorPrac").append(
-          '<h4>'+practice.name+'</h4>'+
-          '<h5>'+pracNewPatient+'</h5>'+
-          '<dl class="dl-horizontal">'+phone+
-            `<dt>Address</dt><dd>${practice.address.street} ${practice.address.city}, ${practice.address.state} ${practice.address.zip}</dd>`+
-          '</dl>');
+        $("#doctorPrac").append(`<h4>${practice.name}</h4><h5>${pracNewPatient}</h5><dl class="dl-horizontal">${phone}`+
+            `<dt>Address</dt><dd>${practice.address.street} ${practice.address.city}, ${practice.address.state} ${practice.address.zip}</dd></dl>`);
       });
       detailsPanel.toggle();
     });
