@@ -1,4 +1,5 @@
 var Doctor = require('../js/doctor.js').doctorModule;
+var doctorObj = new Doctor();
 
 function displayDoctorList(doctorList, detailsPanel) {
   $("#doctorList").empty();
@@ -42,6 +43,7 @@ function displayDoctorList(doctorList, detailsPanel) {
 
 var resetBtn = function() {
   $("#findDoctorBtn").html('<span class="glyphicon glyphicon-search"></span>');
+  $("#findSpecBtn").html('<span class="glyphicon glyphicon-search"></span>');
 }
 
 var getLocation = function() {
@@ -60,6 +62,10 @@ var getLocation = function() {
 }
 
 $(function() {
+  doctorObj.getSpecs().done(results => {
+    results.forEach(result => $("#specList").append(`<option value="${result.uid}">${result.name}</option>`));
+  })
+
   var detailsPanel = $('#details-panel').scotchPanel({
     containerSelector: '#doctors',
     direction: 'right',
@@ -78,12 +84,23 @@ $(function() {
     $(this).html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
     var issue = $("#issue").val();
     $("#issue").val("");
-    var doctorObj = new Doctor();
     if (navigator.geolocation) {
       getLocation().then(location => doctorObj.findDoctorByIssue(location, issue).done(results => displayDoctorList(results, detailsPanel)));
     } else {
       // add option to enter location manually
     }
   })
+
+  $("#findSpecBtn").click(function() {
+    $(this).html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
+    var spec = $("#specList").val();
+    if (navigator.geolocation) {
+      getLocation().then(location => doctorObj.findDoctorBySpec(location, spec).done(results => displayDoctorList(results, detailsPanel)));
+    } else {
+      // add option to enter location manually
+    }
+  })
+
+
 
 })

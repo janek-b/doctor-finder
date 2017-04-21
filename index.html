@@ -19,13 +19,22 @@
       <div class="row">
         <div class="col-md-5 col-md-offset-1">
           <div class="input-group">
+            <select id="specList" class="form-control">
+            </select>
+            <span class="input-group-btn">
+              <button id="findSpecBtn" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span></button>
+            </span>
+          </div>
+        </div>
+        <!-- <div class="col-md-5 col-md-offset-1">
+          <div class="input-group">
             <span class="input-group-addon">
               <span class="glyphicon glyphicon-map-marker"></span>
               <input id="locate" type="checkbox">
             </span>
             <input type="text" class="form-control" id="location" placeholder="Enter location (optional)" value="45.5230622,-122.6764816">
           </div>
-        </div>
+        </div> -->
         <div class="col-md-5">
           <div class="input-group">
             <input class="form-control" type="text" id="issue" placeholder="Search by issue" value="Headache">
