@@ -14,7 +14,16 @@ Doctor.prototype.findDoctorByIssue = function (location, issue) {
       foundDoctor.bio = doctor.profile.bio;
       foundDoctor.specialties = doctor.specialties;
       foundDoctor.education = doctor.educations;
-      foundDoctor.practices = doctor.practices;
+      foundDoctor.practices = doctor.practices.map(practice => {
+        var prac = {};
+        prac.name = practice.name;
+        prac.newPatients = practice.accepts_new_patients;
+        prac.location = {lat: practice.lat, lng: practice.lon};
+        prac.distance = practice.distance;
+        prac.address = practice.visit_address;
+        prac.phone = practice.phones;
+        return prac;
+      });
       doctors.push(foundDoctor);
     })
     return doctors;
