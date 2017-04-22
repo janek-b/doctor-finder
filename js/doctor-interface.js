@@ -36,15 +36,14 @@ function displayDoctorList(doctorList) {
             `<dt>Address</dt><dd>${practice.address.street} ${practice.address.city}, ${practice.address.state} ${practice.address.zip}</dd></dl>`);
       });
       $("#offCanvas").foundation('toggle');
-      // detailsPanel.toggle();
     });
   });
   resetBtn();
 }
 
 var resetBtn = function() {
-  $("#findDoctorBtn").html('<span aria-hidden="true"><i class="fa fa-search" aria-hidden="true"></i></span>');
-  $("#findSpecBtn").html('<span aria-hidden="true"><i class="fa fa-search" aria-hidden="true"></i></span>');
+  $("#findDoctorBtn").html('<span aria-hidden="true"><i class="fa fa-lg fa-search" aria-hidden="true"></i></span>');
+  $("#findSpecBtn").html('<span aria-hidden="true"><i class="fa fa-lg fa-search" aria-hidden="true"></i></span>');
 }
 
 var getLocation = function() {
@@ -64,42 +63,40 @@ var getLocation = function() {
 
 $(function() {
   $(document).foundation();
+
+  if (navigator.geolocation) {
+    $(".page-header").html('<h1>Doctor Finder <small>getting your location <i class="fa fa-spinner fa-spin"></i></small></h1>');
+    getLocation().then(location => {
+      localStorage.setItem("location", location);
+      $(".page-header").html('<h1>Doctor Finder</h1>');
+      $("#search").slideDown();
+    });
+  } else {
+    $("#location").slideDown();
+    // manual geolocation based on input
+  }
+
   doctorObj.getSpecs().done(results => {
     results.forEach(result => $("#specList").append(`<option value="${result.uid}">${result.name}</option>`));
   })
-  //
-  // var detailsPanel = $('#details-panel').scotchPanel({
-  //   containerSelector: '#doctors',
-  //   direction: 'right',
-  //   duration: 300,
-  //   transition: 'ease',
-  //   clickSelector: '.toggle-panel',
-  //   distanceY: '80%',
-  //   enableEscapeKey: true
-  // });
 
-  // $(".overlay").click(function() {
-  //   detailsPanel.close();
-  // })
 
   $("#findDoctorBtn").click(function() {
-    $(this).html('<span aria-hidden="true"><i class="fa fa-spinner fa-spin"></i></span>');
     var issue = $("#issue").val();
     $("#issue").val("");
-    if (navigator.geolocation) {
-      getLocation().then(location => doctorObj.findDoctorByIssue(location, issue).done(results => displayDoctorList(results)));
-    } else {
-      // add option to enter location manually
+    var location = localStorage.getItem("location");
+    if (location) {
+      $(this).html('<span aria-hidden="true"><i class="fa fa-spinner fa-lg fa-spin"></i></span>');
+      doctorObj.findDoctorByIssue(location, issue).done(results => displayDoctorList(results));
     }
   })
 
   $("#findSpecBtn").click(function() {
-    $(this).html('<span aria-hidden="true"><i class="fa fa-spinner fa-spin"></i></span>');
     var spec = $("#specList").val();
-    if (navigator.geolocation) {
-      getLocation().then(location => doctorObj.findDoctorBySpec(location, spec).done(results => displayDoctorList(results)));
-    } else {
-      // add option to enter location manually
+    var location = localStorage.getItem("location");
+    if (location) {
+      $(this).html('<span aria-hidden="true"><i class="fa fa-spinner fa-lg fa-spin"></i></span>');
+      doctorObj.findDoctorBySpec(location, spec).done(results => displayDoctorList(results));
     }
   })
 

@@ -9,24 +9,7 @@ var jshint = require('gulp-jshint');
 var browserSync = require('browser-sync').create();
 var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
-var autoprefixer = require('gulp-autoprefixer');
 var lib = require('bower-files')();
-// var lib = require('bower-files')({
-//   "overrides":{
-//     "bootstrap":{
-//       "main":[
-//         "less/bootstrap.less",
-//         "dist/css/bootstrap.css",
-//         "dist/js/bootstrap.js",
-//         "dist/fonts/glyphicons-halflings-regular.eot",
-//         "dist/fonts/glyphicons-halflings-regular.svg",
-//         "dist/fonts/glyphicons-halflings-regular.ttf",
-//         "dist/fonts/glyphicons-halflings-regular.woff",
-//         "dist/fonts/glyphicons-halflings-regular.woff2"
-//       ]
-//     }
-//   }
-// });
 
 var buildProduction = utilities.env.production;
 
