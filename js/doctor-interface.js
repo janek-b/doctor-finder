@@ -1,21 +1,21 @@
 var Doctor = require('../js/doctor.js').doctorModule;
 var doctorObj = new Doctor();
 
-function displayDoctorList(doctorList, detailsPanel) {
+function displayDoctorList(doctorList) {
   $("#doctorList").empty();
   doctorList.forEach(function(doctor) {
     var education = doctor.education.reduce((acc, ed) => acc + `<dt>${ed.degree}</dt><dd>${ed.school}</dd>`, "");
-    var specialties = doctor.specialties.reduce((acc, spec) => acc + `<span class="label label-default">${spec.name}</span> `, "");
+    var specialties = doctor.specialties.reduce((acc, spec) => acc + `<span class="[round] label">${spec.name}</span> `, "");
     var newPatient;
     if(doctor.practices.filter(practice => (practice.newPatients)).map(practice => practice.newPatients).length > 0) {
-      newPatient = '<span class="label label-success">Accepting new patients</span>';
+      newPatient = '<span class="success radius label">Accepting new patients</span>';
     } else {
-      newPatient = '<span class="label label-danger">Not accepting new patients</span>';
+      newPatient = '<span class="alert radius label">Not accepting new patients</span>';
     };
 
-    $("#doctorList").append(`<li class="media"><div class="media-left"><a href="#" class="toggle-panel">`+
-      `<img class="media-object" src="${doctor.img}" alt="thumbnail for doctor ${doctor.name}"></a></div>`+
-      `<div class="media-body"><h4 class="media-heading">${doctor.name}, ${doctor.title} ${newPatient}</h4>`+
+    $("#doctorList").append(`<li class="media-object"><div class="media-object-section"><a href="#" class="thumbnail toggle-panel">`+
+      `<img src="${doctor.img}" alt="thumbnail for doctor ${doctor.name}"></a></div>`+
+      `<div class="media-object-section main-section"><h4>${doctor.name}, ${doctor.title} ${newPatient}</h4>`+
       `<p>${specialties}</p><dl class="dl-horizontal">${education}</dl></div></li>`);
 
     $('#doctorList .toggle-panel').last().click(function() {
@@ -35,15 +35,16 @@ function displayDoctorList(doctorList, detailsPanel) {
         $("#doctorPrac").append(`<h4>${practice.name}</h4><h5>${pracNewPatient}</h5><dl class="dl-horizontal">${phone}`+
             `<dt>Address</dt><dd>${practice.address.street} ${practice.address.city}, ${practice.address.state} ${practice.address.zip}</dd></dl>`);
       });
-      detailsPanel.toggle();
+      $("#offCanvas").foundation('toggle');
+      // detailsPanel.toggle();
     });
   });
   resetBtn();
 }
 
 var resetBtn = function() {
-  $("#findDoctorBtn").html('<span class="glyphicon glyphicon-search"></span>');
-  $("#findSpecBtn").html('<span class="glyphicon glyphicon-search"></span>');
+  $("#findDoctorBtn").html('<span aria-hidden="true"><i class="fa fa-search" aria-hidden="true"></i></span>');
+  $("#findSpecBtn").html('<span aria-hidden="true"><i class="fa fa-search" aria-hidden="true"></i></span>');
 }
 
 var getLocation = function() {
@@ -62,40 +63,41 @@ var getLocation = function() {
 }
 
 $(function() {
+  $(document).foundation();
   doctorObj.getSpecs().done(results => {
     results.forEach(result => $("#specList").append(`<option value="${result.uid}">${result.name}</option>`));
   })
+  //
+  // var detailsPanel = $('#details-panel').scotchPanel({
+  //   containerSelector: '#doctors',
+  //   direction: 'right',
+  //   duration: 300,
+  //   transition: 'ease',
+  //   clickSelector: '.toggle-panel',
+  //   distanceY: '80%',
+  //   enableEscapeKey: true
+  // });
 
-  var detailsPanel = $('#details-panel').scotchPanel({
-    containerSelector: '#doctors',
-    direction: 'right',
-    duration: 300,
-    transition: 'ease',
-    clickSelector: '.toggle-panel',
-    distanceY: '80%',
-    enableEscapeKey: true
-  });
-
-  $(".overlay").click(function() {
-    detailsPanel.close();
-  })
+  // $(".overlay").click(function() {
+  //   detailsPanel.close();
+  // })
 
   $("#findDoctorBtn").click(function() {
-    $(this).html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
+    $(this).html('<span aria-hidden="true"><i class="fa fa-spinner fa-spin"></i></span>');
     var issue = $("#issue").val();
     $("#issue").val("");
     if (navigator.geolocation) {
-      getLocation().then(location => doctorObj.findDoctorByIssue(location, issue).done(results => displayDoctorList(results, detailsPanel)));
+      getLocation().then(location => doctorObj.findDoctorByIssue(location, issue).done(results => displayDoctorList(results)));
     } else {
       // add option to enter location manually
     }
   })
 
   $("#findSpecBtn").click(function() {
-    $(this).html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>');
+    $(this).html('<span aria-hidden="true"><i class="fa fa-spinner fa-spin"></i></span>');
     var spec = $("#specList").val();
     if (navigator.geolocation) {
-      getLocation().then(location => doctorObj.findDoctorBySpec(location, spec).done(results => displayDoctorList(results, detailsPanel)));
+      getLocation().then(location => doctorObj.findDoctorBySpec(location, spec).done(results => displayDoctorList(results)));
     } else {
       // add option to enter location manually
     }

@@ -9,24 +9,27 @@ var jshint = require('gulp-jshint');
 var browserSync = require('browser-sync').create();
 var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
-var lib = require('bower-files')({
-  "overrides":{
-    "bootstrap":{
-      "main":[
-        "less/bootstrap.less",
-        "dist/css/bootstrap.css",
-        "dist/js/bootstrap.js",
-        "dist/fonts/glyphicons-halflings-regular.eot",
-        "dist/fonts/glyphicons-halflings-regular.svg",
-        "dist/fonts/glyphicons-halflings-regular.ttf",
-        "dist/fonts/glyphicons-halflings-regular.woff",
-        "dist/fonts/glyphicons-halflings-regular.woff2"
-      ]
-    }
-  }
-});
+var autoprefixer = require('gulp-autoprefixer');
+var lib = require('bower-files')();
+// var lib = require('bower-files')({
+//   "overrides":{
+//     "bootstrap":{
+//       "main":[
+//         "less/bootstrap.less",
+//         "dist/css/bootstrap.css",
+//         "dist/js/bootstrap.js",
+//         "dist/fonts/glyphicons-halflings-regular.eot",
+//         "dist/fonts/glyphicons-halflings-regular.svg",
+//         "dist/fonts/glyphicons-halflings-regular.ttf",
+//         "dist/fonts/glyphicons-halflings-regular.woff",
+//         "dist/fonts/glyphicons-halflings-regular.woff2"
+//       ]
+//     }
+//   }
+// });
 
 var buildProduction = utilities.env.production;
+
 
 gulp.task('jshint', function() {
   return gulp.src(['js/*.js'])
@@ -75,18 +78,12 @@ gulp.task('bowerJS', function() {
     .pipe(gulp.dest('./build/js'));
 });
 
-gulp.task('bowerCSS', function() {
-  return gulp.src(lib.ext('css').files)
-    .pipe(concat('vendor.css'))
-    .pipe(gulp.dest('./build/css'));
-});
-
 gulp.task('bowerFonts', function() {
   return gulp.src(lib.ext(['eot', 'woff', 'woff2', 'ttf', 'svg']).files)
     .pipe(gulp.dest('./build/fonts'));
 });
 
-gulp.task('bower', ['bowerJS', 'bowerCSS', 'bowerFonts']);
+gulp.task('bower', ['bowerJS', 'bowerFonts']);
 
 gulp.task('serve', function() {
   browserSync.init({
@@ -116,7 +113,9 @@ gulp.task('htmlBuild', function() {
 gulp.task('cssBuild', function(){
   return gulp.src(['scss/*.scss'])
     .pipe(sourcemaps.init())
-    .pipe(sass())
+    .pipe(sass({
+      includePaths: ['bower_components/foundation-sites/scss']
+    }))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest('./build/css'));
 });
