@@ -6,6 +6,9 @@ var doctorObj = new Doctor();
 
 function displayDoctorList(doctorList) {
   $("#doctorList").empty();
+  if (doctorList.length === 0) {
+    $("#doctorList").append("<h2 class='subheader text-center'>No Results Found</h2>");
+  }
   doctorList.forEach(function(doctor) {
     var education = doctor.education.reduce((acc, ed) => acc + `<dt>${ed.degree}</dt><dd>${ed.school}</dd>`, "");
     var specialties = doctor.specialties.reduce((acc, spec) => acc + `<span class="[round] label">${spec.name}</span> `, "");
@@ -16,10 +19,14 @@ function displayDoctorList(doctorList) {
       newPatient = '<span class="alert radius label">Not accepting new patients</span>';
     };
 
-    $("#doctorList").append(`<hr><li class="media-object"><div class="media-object-section middle"><div class="thumbnail toggle-panel">`+
+    $("#doctorList").append(`<div class="card card-shadow"><div class="card-section float-left"><div class="thumbnail toggle-panel">`+
       `<img src="${doctor.img}" alt="thumbnail for doctor ${doctor.name}"></div></div>`+
-      `<div class="media-object-section main-section"><h4>${doctor.name}, ${doctor.title} ${newPatient}</h4>`+
-      `<p>${specialties}</p></li>`);
+      `<div class="card-section float-center"><h4>${doctor.name}, ${doctor.title} ${newPatient}</h4>`+
+      `<p>${specialties}</p></div></div>`);
+    // $("#doctorList").append(`<hr><li class="media-object"><div class="media-object-section middle"><div class="thumbnail toggle-panel">`+
+    //   `<img src="${doctor.img}" alt="thumbnail for doctor ${doctor.name}"></div></div>`+
+    //   `<div class="media-object-section main-section"><h4>${doctor.name}, ${doctor.title} ${newPatient}</h4>`+
+    //   `<p>${specialties}</p></li>`);
 
     $('#doctorList .toggle-panel').last().click(function() {
       $("#doctorImg").html(`<img src="${doctor.img}" alt="thumbnail for doctor ${doctor.name}">`);

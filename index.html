@@ -11,16 +11,22 @@
   <body>
     <div class="off-canvas position-right" id="offCanvas" data-transition="overlap" data-off-canvas>
       <div id="details-panel">
-        <div id="doctorImg"></div>
-        <h2 id="doctorName"></h2>
-        <h4 id="doctorSpec"></h3>
+        <div class="card">
+          <div class="card-section float-left">
+            <div id="doctorImg"></div>
+          </div>
+          <div class="card-section float-center">
+            <h2 id="doctorName"></h2>
+            <h4 id="doctorSpec"></h3>
+          </div>
+        </div>
         <ul class="tabs" data-tabs id="details-tabs">
-          <li class="tabs-title is-active"><a href="#bio">Bio</a></li>
+          <li class="tabs-title is-active"><a href="#bio" aria-selected="true">Bio</a></li>
           <li class="tabs-title"><a href="#edu">Education</a></li>
           <li class="tabs-title"><a href="#practices">Practices</a></li>
         </ul>
         <div class="tabs-content" data-tabs-content="details-tabs">
-          <div class="tabs-panel" id="bio">
+          <div class="tabs-panel is-active" id="bio">
             <h3 class="subheader">Bio</h3>
             <hr>
             <p class="text-justify" id="doctorBio"></p>
@@ -94,6 +100,7 @@
         </div>
       </header>
       <div class="row">
+        <br>
         <div id="doctorList" class="medium-12 columns">
         </div>
       </div>

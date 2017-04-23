@@ -44,7 +44,7 @@ body {
   padding: 0.25rem;
   border-radius: 5px;
   align-items: center;
-  box-shadow: 2px 2px 3px 1px #888888;
+  // box-shadow: 2px 2px 3px 1px #888888;
 
   .divider {
     background-color: $medium-gray;
@@ -105,11 +105,15 @@ dd {
 #advSearch {
   width: 90%;
   display: none;
+  box-shadow: 2px 2px 3px 1px #888888;
+  border-radius: 5px;
 }
 
 .searchBox {
   display: block;
   width: 90%;
+  box-shadow: 2px 2px 3px 1px #888888;
+  border-radius: 5px;
 }
 
 #details-panel {
@@ -118,4 +122,8 @@ dd {
 
 #doctorList {
   min-height: calc(100vh - #{$hero-search-height});
+}
+
+.card-shadow {
+  box-shadow: 2px 2px 3px 1px #888888;
 }
