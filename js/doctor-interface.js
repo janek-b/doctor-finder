@@ -61,8 +61,7 @@ $(function() {
     doctorObj.getInsurance().done(results => {
       results.forEach(result => $("#insuranceList").append(`<option value="${result.uid}">${result.name}</option>`));
     })
-  }, 500);
-
+  }, 1000);
 
   if (navigator.geolocation) {
     localStorage.removeItem("currentLocation");
@@ -100,16 +99,6 @@ $(function() {
       }
     });
   }
-
-  // $("#findDoctorBtn").click(function() {
-  //   $(this).html('<span aria-hidden="true"><i class="fa fa-spinner fa-lg fa-spin"></i></span>');
-  //   var address = $("#location").val();
-  //   var input = $("#input").val();
-  //   $("#input").val("");
-  //   processLocation(address).then(location => {
-  //     doctorObj.findDoctorByIssue(location, input).done(results => displayDoctorList(results));
-  //   });
-  // });
 
   $("#findDoctorBtn").click(function() {
     $(this).html('<span aria-hidden="true"><i class="fa fa-spinner fa-lg fa-spin"></i></span>');

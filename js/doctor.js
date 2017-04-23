@@ -3,23 +3,6 @@ var apiKey = require('../.env').apiKey;
 function Doctor() {
 }
 
-
-Doctor.prototype.findDoctorByIssue = function (location, issue) {
-  return $.get('https://api.betterdoctor.com/2016-03-01/doctors?query=' + issue + '&location=' + location + '%2C100&user_location=' + location + '&skip=0&limit=10&user_key=' + apiKey).then(function(response) {
-    return processResponse(response);
-  }).fail(function(error) {
-    console.log(error);
-  });
-};
-
-Doctor.prototype.findDoctorBySpec = function (location, spec) {
-  return $.get('https://api.betterdoctor.com/2016-03-01/doctors?specialty_uid=' + spec + '&location=' + location + '%2C100&user_location=' + location + '&skip=0&limit=10&user_key=' + apiKey).then(function(response) {
-    return processResponse(response);
-  }).fail(function(error) {
-    console.log(error);
-  });
-};
-
 Doctor.prototype.advSearch = function (location, search, spec, insurance, gender) {
   return $.get('https://api.betterdoctor.com/2016-03-01/doctors?' + search + spec + insurance + 'location=' + location + '%2C100&user_location=' + location + gender + '&sort=distance-asc&skip=0&limit=10&user_key=' + apiKey).then(function(response) {
     return processResponse(response);
