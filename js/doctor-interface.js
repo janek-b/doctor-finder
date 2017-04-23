@@ -46,8 +46,6 @@ function displayDoctorList(doctorList) {
 function resetBtn() {
   $("#findDoctorBtn").html('<i class="fa fa-search"></i>');
   $("#advFindDoctorBtn").html('<i class="fa fa-search"></i>');
-  // $("#findSpecBtn").html('<span aria-hidden="true"><i class="fa fa-lg fa-search" aria-hidden="true"></i></span>');
-  // $("#findLocationBtn").html('<span aria-hidden="true"><i class="fa fa-lg fa-search" aria-hidden="true"></i></span>');
 }
 
 function getLocation() {
@@ -68,7 +66,6 @@ function getLocation() {
 $(function() {
   $(document).foundation();
 
-
   doctorObj.getSpecs().done(results => {
     results.forEach(result => $("#specList").append(`<option value="${result.uid}">${result.name}</option>`));
   })
@@ -76,7 +73,7 @@ $(function() {
     doctorObj.getInsurance().done(results => {
       results.forEach(result => $("#insuranceList").append(`<option value="${result.uid}">${result.name}</option>`));
     })
-  }, 100);
+  }, 500);
 
 
   if (navigator.geolocation) {
@@ -93,44 +90,51 @@ $(function() {
     $("#location").attr("placeholder", "Enter address or zipcode");
   }
 
+  function processLocation(address) {
+    return new Promise((resolve, reject) => {
+      if (((localStorage.getItem("currentLocation") === "disabled") && address) || address) {
+        getLatLon(address).then(latLng => {
+          localStorage.setItem("searchLocation", `${latLng.lat}, ${latLng.lng}`);
+          resolve(`${latLng.lat}, ${latLng.lng}`);
+        });
+      } else if ((localStorage.getItem("currentLocation") === "disabled") && !(address)) {
+        // Display error in search field
+        reject("enter address field");
+        resetBtn();
+      } else {
+        navLocate.then(() => {
+          if (localStorage.getItem("currentLocation") === localStorage.getItem("searchLocation")) {
+            resolve(localStorage.getItem("currentLocation"));
+          } else {
+            getLocation().then(location => resolve(location));
+          }
+        });
+      }
+    });
+  }
 
   $("#findDoctorBtn").click(function() {
     $(this).html('<span aria-hidden="true"><i class="fa fa-spinner fa-lg fa-spin"></i></span>');
+    var address = $("#location").val();
     var input = $("#input").val();
     $("#input").val("");
-    var address = $("#location").val();
-    if (((localStorage.getItem("currentLocation") === "disabled") && address) || address) {
-      getLatLon(address).then(latLng => {
-        localStorage.setItem("searchLocation", `${latLng.lat}, ${latLng.lng}`);
-        return `${latLng.lat}, ${latLng.lng}`;
-      }).done((result) => {
-        doctorObj.findDoctorByIssue(result, input).done(results => displayDoctorList(results));
-      });
-    } else if ((localStorage.getItem("currentLocation") === "disabled") && !(address)) {
-      // Display error in search field
-      console.log("enter address field");
-      resetBtn();
-    } else {
-      navLocate.then(() => {
-        if (localStorage.getItem("currentLocation") === localStorage.getItem("searchLocation")) {
-          doctorObj.findDoctorByIssue(localStorage.getItem("currentLocation"), input).done(results => displayDoctorList(results));
-        } else {
-          getLocation().then(location => {
-            doctorObj.findDoctorByIssue(location, input).done(results => displayDoctorList(results));
-          })
-        }
-      })
-    }
-  })
+    processLocation(address).then(location => {
+      doctorObj.findDoctorByIssue(location, input).done(results => displayDoctorList(results));
+    });
+  });
 
-  //
-  // $("#findSpecBtn").click(function() {
-  //   var spec = $("#specList").val();
-  //   var location = localStorage.getItem("location");
-  //   if (location) {
-  //     $(this).html('<span aria-hidden="true"><i class="fa fa-spinner fa-lg fa-spin"></i></span>');
-  //     doctorObj.findDoctorBySpec(location, spec).done(results => displayDoctorList(results));
-  //   }
-  // })
+  $("#advFindDoctorBtn").click(function() {
+    $(this).html('<span aria-hidden="true"><i class="fa fa-spinner fa-lg fa-spin"></i></span>');
+    var address = $("#advLocation").val();
+    var spec = $("#specList").val();
+    var insurance = $("#insuranceList").val();
+    var gender = $("#genderList").val();
+    if (spec) {spec = `specialty_uid=${spec}&`;}
+    if (insurance) {insurance = `insurance_uid=${insurance}&`}
+    if (gender) {gender = `&gender=${gender}`}
+    processLocation(address).then(location => {
+      doctorObj.advSearch(location, spec, insurance, gender).done(results => displayDoctorList(results));
+    });
+  });
 
 })

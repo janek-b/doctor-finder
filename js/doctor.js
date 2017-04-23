@@ -20,6 +20,14 @@ Doctor.prototype.findDoctorBySpec = function (location, spec) {
   });
 };
 
+Doctor.prototype.advSearch = function (location, spec, insurance, gender) {
+  return $.get('https://api.betterdoctor.com/2016-03-01/doctors?' + spec + insurance + 'location=' + location + '%2C100&user_location=' + location + gender + '&skip=0&limit=10&user_key=' + apiKey).then(function(response) {
+    return processResponse(response);
+  }).fail(function(error) {
+    console.log(error);
+  })
+};
+
 Doctor.prototype.getSpecs = function () {
   return $.get('https://api.betterdoctor.com/2016-03-01/specialties?user_key=' + apiKey).then(function(response) {
     return response.data.sort(function(a, b) {
