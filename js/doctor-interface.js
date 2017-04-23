@@ -117,11 +117,14 @@ $(function() {
     var spec = $("#specList").val();
     var insurance = $("#insuranceList").val();
     var gender = $("#genderList").val();
+    var search = $("#search").val();
+    $("#search").val("");
     if (spec) {spec = `specialty_uid=${spec}&`;}
     if (insurance) {insurance = `insurance_uid=${insurance}&`}
     if (gender) {gender = `&gender=${gender}`}
+    if (search) {search = `query=${search}&`}
     processLocation(address).then(location => {
-      doctorObj.advSearch(location, spec, insurance, gender).done(results => displayDoctorList(results));
+      doctorObj.advSearch(location, search, spec, insurance, gender).done(results => displayDoctorList(results));
     });
   });
 
