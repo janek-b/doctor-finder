@@ -57,7 +57,7 @@ function displayDoctorList(doctorList) {
         } else {
           var pracNewPatient = '<span class="alert radius label">Not accepting new patients</span>'
         }
-        var phone = practice.phone.reduce((acc, phone) => acc + `<dt>${phone.type}</dt><dd>${phone.number}</dd>`, "");
+        var phone = practice.phone.reduce((acc, phone) => acc + `<dt class="text-capitalize">${phone.type.replace(/_/g, ' ')}</dt><dd>${phone.number.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3')}</dd>`, "");
         $("#doctorPrac").append(`<h4>${practice.name} ${pracNewPatient}</h4><dl class="dl-horizontal">${phone}`+
             `<dt>Address</dt><dd>${practice.address.street} ${practice.address.city}, ${practice.address.state} ${practice.address.zip}</dd>`+
             `<dt>Distance</dt><dd>${practice.distance.toFixed(2)} miles</dd></dl>`);
@@ -143,6 +143,7 @@ $(function() {
   });
 
   $("#advSearchBtn").click(function() {
+    $(this).children().toggleClass("down");
     $("#basicSearch").toggleClass('top-form');
     $("#advSearch").slideToggle();
     $("#specList").val("");

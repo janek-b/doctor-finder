@@ -114,6 +114,10 @@ dd {
   border-radius: 5px;
 }
 
+#advSearchBtn {
+  margin-top: 10px;
+}
+
 #details-panel {
   padding: 40px;
 }
@@ -133,4 +137,29 @@ dd {
 #missingLocation {
   cursor: default;
   border-bottom: none;
+}
+
+
+.cw,
+.ccw{
+    -moz-transition: all 0.3s linear;
+    -webkit-transition: all 0.3s linear;
+    transition: all 0.3s linear;
+}
+
+.cw.down{
+    -moz-transform:rotate(180deg);
+    -webkit-transform:rotate(180deg);
+    transform:rotate(180deg);
+}
+
+.ccw.down{
+    -moz-transform:rotate(-180deg);
+    -webkit-transform:rotate(-180deg);
+    transform:rotate(-180deg);
+}
+
+
+.text-capitalize {
+  text-transform: capitalize;
 }
