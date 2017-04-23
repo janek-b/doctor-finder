@@ -6,8 +6,7 @@ var doctorObj = new Doctor();
 function displayDoctorList(doctorList) {
   $("#doctorList").empty();
   doctorList.forEach(function(doctor) {
-    var education = doctor.education.filter((ed) => ed.degree === "MD").reduce((acc, ed) => acc + `<dt>${ed.degree}</dt><dd>${ed.school}</dd>`, "");
-    var educationFull = doctor.education.reduce((acc, ed) => acc + `<dt>${ed.degree}</dt><dd>${ed.school}</dd>`, "");
+    var education = doctor.education.reduce((acc, ed) => acc + `<dt>${ed.degree}</dt><dd>${ed.school}</dd>`, "");
     var specialties = doctor.specialties.reduce((acc, spec) => acc + `<span class="[round] label">${spec.name}</span> `, "");
     var newPatient;
     if(doctor.practices.filter(practice => (practice.newPatients)).map(practice => practice.newPatients).length > 0) {
@@ -20,14 +19,13 @@ function displayDoctorList(doctorList) {
       `<img src="${doctor.img}" alt="thumbnail for doctor ${doctor.name}"></a></div>`+
       `<div class="media-object-section main-section"><h4>${doctor.name}, ${doctor.title} ${newPatient}</h4>`+
       `<p>${specialties}</p></li>`);
-      // `<p>${specialties}</p><dl class="dl-horizontal">${educationFull}</dl></div></li>`);
 
     $('#doctorList .toggle-panel').last().click(function() {
       $("#doctorImg").html(`<img src="${doctor.img}" alt="thumbnail for doctor ${doctor.name}">`);
       $("#doctorName").text(`${doctor.name}, ${doctor.title}`);
       $("#doctorSpec").html(specialties);
       $("#doctorBio").text(doctor.bio);
-      $("#doctorEdu").html(educationFull);
+      $("#doctorEdu").html(education);
       $("#doctorPrac").empty();
       doctor.practices.forEach(function(practice) {
         if (practice.newPatients) {
@@ -47,6 +45,7 @@ function displayDoctorList(doctorList) {
 
 function resetBtn() {
   $("#findDoctorBtn").html('<i class="fa fa-search"></i>');
+  $("#advFindDoctorBtn").html('<i class="fa fa-search"></i>');
   // $("#findSpecBtn").html('<span aria-hidden="true"><i class="fa fa-lg fa-search" aria-hidden="true"></i></span>');
   // $("#findLocationBtn").html('<span aria-hidden="true"><i class="fa fa-lg fa-search" aria-hidden="true"></i></span>');
 }
@@ -69,9 +68,15 @@ function getLocation() {
 $(function() {
   $(document).foundation();
 
+
   doctorObj.getSpecs().done(results => {
     results.forEach(result => $("#specList").append(`<option value="${result.uid}">${result.name}</option>`));
   })
+  setTimeout(function() {
+    doctorObj.getInsurance().done(results => {
+      results.forEach(result => $("#insuranceList").append(`<option value="${result.uid}">${result.name}</option>`));
+    })
+  }, 100);
 
 
   if (navigator.geolocation) {

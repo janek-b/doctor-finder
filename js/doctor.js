@@ -22,14 +22,34 @@ Doctor.prototype.findDoctorBySpec = function (location, spec) {
 
 Doctor.prototype.getSpecs = function () {
   return $.get('https://api.betterdoctor.com/2016-03-01/specialties?user_key=' + apiKey).then(function(response) {
-    var specs = response.data.sort(function(a, b) {
+    return response.data.sort(function(a, b) {
       var nameA = a.name.toUpperCase();
       var nameB = b.name.toUpperCase();
       if (nameA < nameB) {return -1;};
       if (nameA > nameB) {return 1;};
       return 0;
     });
-    return specs;
+  }).fail(function(error) {
+    console.log(error);
+  })
+};
+
+Doctor.prototype.getInsurance = function () {
+  return $.get('https://api.betterdoctor.com/2016-03-01/insurances?user_key=' + apiKey).then(function(response) {
+    var insurancePlans = [];
+    response.data.forEach(provider => {
+      var newProvider = {};
+      newProvider.name = provider.name;
+      newProvider.uid = provider.plans.reduce((acc, plan) => acc + `,${plan.uid}`, "").slice(1);
+      insurancePlans.push(newProvider);
+    })
+    return insurancePlans.sort(function(a, b) {
+      var nameA = a.name.toUpperCase();
+      var nameB = b.name.toUpperCase();
+      if (nameA < nameB) {return -1;};
+      if (nameA > nameB) {return 1;};
+      return 0;
+    });
   }).fail(function(error) {
     console.log(error);
   })
