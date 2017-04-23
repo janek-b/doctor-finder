@@ -57,6 +57,7 @@ var processResponse = function (response) {
     foundDoctor.bio = doctor.profile.bio;
     foundDoctor.specialties = doctor.specialties;
     foundDoctor.education = doctor.educations;
+    foundDoctor.licenses = doctor.licenses;
     foundDoctor.practices = doctor.practices.map(practice => {
       var prac = {};
       prac.name = practice.name;
@@ -66,7 +67,7 @@ var processResponse = function (response) {
       prac.address = practice.visit_address;
       prac.phone = practice.phones;
       return prac;
-    });
+    }).sort((a, b) => {a.distance - b.distance});
     doctors.push(foundDoctor);
   })
   return doctors;

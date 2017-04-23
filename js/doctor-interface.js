@@ -26,7 +26,23 @@ function displayDoctorList(doctorList) {
       $("#doctorName").text(`${doctor.name}, ${doctor.title}`);
       $("#doctorSpec").html(specialties);
       $("#doctorBio").text(doctor.bio);
-      $("#doctorEdu").html(education);
+
+      if (education) {
+        $("#doctorEdu").html(education);
+      } else {
+        $("#doctorEdu").html('<p>No Education Information Availabele</p>');
+      }
+
+      $("#doctorLicenses").empty()
+      if (doctor.licenses) {
+        doctor.licenses.forEach(function(license) {
+          var licenseInfo = Object.entries(license).reduce((acc, lice) => acc + `<dt>${lice[0]}</dt><dd>${lice[1]}</dd>`, "");
+          $("#doctorLicenses").append(`<dl>${licenseInfo}</dl><hr>`);
+        })
+      } else {
+        $("#doctorLicenses").append('<p>No License Information Available.');
+      }
+
       $("#doctorPrac").empty();
       doctor.practices.forEach(function(practice) {
         if (practice.newPatients) {
@@ -35,9 +51,11 @@ function displayDoctorList(doctorList) {
           var pracNewPatient = '<span class="alert radius label">Not accepting new patients</span>'
         }
         var phone = practice.phone.reduce((acc, phone) => acc + `<dt>${phone.type}</dt><dd>${phone.number}</dd>`, "");
-        $("#doctorPrac").append(`<h4>${practice.name}</h4><h5>${pracNewPatient}</h5><dl class="dl-horizontal">${phone}`+
-            `<dt>Address</dt><dd>${practice.address.street} ${practice.address.city}, ${practice.address.state} ${practice.address.zip}</dd></dl>`);
+        $("#doctorPrac").append(`<h4>${practice.name} ${pracNewPatient}</h4><dl class="dl-horizontal">${phone}`+
+            `<dt>Address</dt><dd>${practice.address.street} ${practice.address.city}, ${practice.address.state} ${practice.address.zip}</dd>`+
+            `<dt>Distance</dt><dd>${practice.distance.toFixed(2)} miles</dd></dl>`);
       });
+
       $("#offCanvas").foundation('toggle');
     });
   });

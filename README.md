@@ -17,10 +17,11 @@ _This website simplifies the process of finding a doctor. A user can enter a med
 
 ## Setup/Installation Requirements
 
-* _The application requires an API Key from betterdoctor.com_
+* _The application requires an API Key from betterdoctor.com and an API Key for google maps_
 * _Place your API key into a `.env` file in the root project directory. The file should contain the following._
 ```
-exports.apiKey = "YOUR_API_KEY";
+exports.apiKey = "YOUR_BETTER_DOCTOR_API_KEY";
+exports.mapKey = "YOUR_GOOGLE_MAPS_API_KEY"
 ```
 * _Run the following commands to install dependencies and build the application_
 ```
