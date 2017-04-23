@@ -1,5 +1,7 @@
 var Doctor = require('../js/doctor.js').doctorModule;
 var getLatLon = require('../js/location.js').getLatLon;
+var getLocation = require('../js/location.js').getLocation;
+
 var doctorObj = new Doctor();
 
 
@@ -48,20 +50,6 @@ function resetBtn() {
   $("#advFindDoctorBtn").html('<i class="fa fa-search"></i>');
 }
 
-function getLocation() {
-  var options = {
-    enableHighAccuracy: true,
-    timeout: 10 * 1000
-  };
-  return new Promise((resolve, reject) => {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      var location = `${position.coords.latitude}, ${position.coords.longitude}`;
-      resolve(location);
-    }, function(error) {
-      reject(error);
-    }, options)
-  })
-}
 
 $(function() {
   $(document).foundation();
