@@ -40,6 +40,7 @@ $hero-search-height: 350px;
     font-weight: bold;
   }
 
+  select,
   input,
   .button {
     margin-bottom: 0;
@@ -80,12 +81,12 @@ dl {
 dt {
   float: left;
   clear: left;
-  width: 100px;
+  width: 150px;
   text-align: right;
   font-weight: bold;
 }
 dd {
-  margin: 0 0 0 110px;
+  margin: 0 0 0 170px;
   padding: 0 0 0.5em 0;
 }
 

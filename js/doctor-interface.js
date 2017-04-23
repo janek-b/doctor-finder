@@ -31,9 +31,9 @@ function displayDoctorList(doctorList) {
       $("#doctorPrac").empty();
       doctor.practices.forEach(function(practice) {
         if (practice.newPatients) {
-          var pracNewPatient = '<span class="label label-success">Accepting new patients</span>'
+          var pracNewPatient = '<span class="success radius label">Accepting new patients</span>'
         } else {
-          var pracNewPatient = '<span class="label label-danger">Not accepting new patients</span>'
+          var pracNewPatient = '<span class="alert radius label">Not accepting new patients</span>'
         }
         var phone = practice.phone.reduce((acc, phone) => acc + `<dt>${phone.type}</dt><dd>${phone.number}</dd>`, "");
         $("#doctorPrac").append(`<h4>${practice.name}</h4><h5>${pracNewPatient}</h5><dl class="dl-horizontal">${phone}`+
@@ -69,9 +69,9 @@ function getLocation() {
 $(function() {
   $(document).foundation();
 
-  // doctorObj.getSpecs().done(results => {
-  //   results.forEach(result => $("#specList").append(`<option value="${result.uid}">${result.name}</option>`));
-  // })
+  doctorObj.getSpecs().done(results => {
+    results.forEach(result => $("#specList").append(`<option value="${result.uid}">${result.name}</option>`));
+  })
 
 
   if (navigator.geolocation) {

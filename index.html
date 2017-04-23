@@ -14,6 +14,29 @@
         <div class="hero-search-text">
 
         </div>
+        <h6>Advanced Search</h6>
+        <div class="hero-search-form">
+          <label for="input">Specialty</label>
+          <select class="hero-search-form-find" id="specList">
+            <option value=""></option>
+          </select>
+          <div class="divider">&nbsp;</div>
+          <label for="input">Insurance</label>
+          <select class="hero-search-form-find" id="insuranceList">
+            <option value=""></option>
+          </select>
+          <div class="divider">&nbsp;</div>
+          <label for="input">Gender</label>
+          <select class="hero-search-form-find" id="genderList">
+            <option value="" selected></option>
+            <option value="female">Female</option>
+            <option value="male">Male</option>
+          </select>
+          <div class="divider">&nbsp;</div>
+          <label for="location">Near</label>
+          <input id="advLocation" class="hero-search-form-near" type="text" placeholder="current location"/>
+          <button id="advFindDoctorBtn" class="button"><i class="fa fa-search"></i></button>
+        </div>
         <div class="hero-search-form">
           <label for="input">Find</label>
           <input id="input" class="hero-search-form-find" type="text" value="headache" required/>
@@ -33,10 +56,13 @@
             <h2 id="doctorName"></h2>
             <h4 id="doctorSpec"></h3>
             <h3>Bio</h3>
+            <hr>
             <p id="doctorBio"></p>
             <h3>Education</h3>
+            <hr>
             <dl id="doctorEdu" class="dl-horizontal"></dl>
             <h3>Practices</h3>
+            <hr>
             <div id="doctorPrac"></div>
           </div>
         </div>
