@@ -47,12 +47,12 @@ function displayDoctorList(doctorList) {
 
 function resetBtn() {
   $("#findDoctorBtn").html('<i class="fa fa-search"></i>');
-  $("#advFindDoctorBtn").html('<i class="fa fa-search"></i>');
 }
 
 
 $(function() {
   $(document).foundation();
+  $("#advSearch").hide();
 
   doctorObj.getSpecs().done(results => {
     results.forEach(result => $("#specList").append(`<option value="${result.uid}">${result.name}</option>`));
@@ -101,17 +101,17 @@ $(function() {
     });
   }
 
-  $("#findDoctorBtn").click(function() {
-    $(this).html('<span aria-hidden="true"><i class="fa fa-spinner fa-lg fa-spin"></i></span>');
-    var address = $("#location").val();
-    var input = $("#input").val();
-    $("#input").val("");
-    processLocation(address).then(location => {
-      doctorObj.findDoctorByIssue(location, input).done(results => displayDoctorList(results));
-    });
-  });
+  // $("#findDoctorBtn").click(function() {
+  //   $(this).html('<span aria-hidden="true"><i class="fa fa-spinner fa-lg fa-spin"></i></span>');
+  //   var address = $("#location").val();
+  //   var input = $("#input").val();
+  //   $("#input").val("");
+  //   processLocation(address).then(location => {
+  //     doctorObj.findDoctorByIssue(location, input).done(results => displayDoctorList(results));
+  //   });
+  // });
 
-  $("#advFindDoctorBtn").click(function() {
+  $("#findDoctorBtn").click(function() {
     $(this).html('<span aria-hidden="true"><i class="fa fa-spinner fa-lg fa-spin"></i></span>');
     var address = $("#advLocation").val();
     var spec = $("#specList").val();
@@ -127,5 +127,13 @@ $(function() {
       doctorObj.advSearch(location, search, spec, insurance, gender).done(results => displayDoctorList(results));
     });
   });
+
+  $("#advSearchBtn").click(function() {
+    $("#basicSearch").toggleClass('top-form');
+    $("#advSearch").slideToggle();
+    $("#specList").val("");
+    $("#insuranceList").val("");
+    $("#genderList").val("");
+  })
 
 })

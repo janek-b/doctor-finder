@@ -12,42 +12,38 @@
     <header class="hero-search">
       <div class="hero-search-content">
         <div class="hero-search-text">
-
         </div>
-        <h6>Advanced Search</h6>
-        <div class="hero-search-form">
-          <label for="input">Specialty</label>
-          <select class="hero-search-form-find" id="specList">
-            <option value=""></option>
-          </select>
-          <div class="divider">&nbsp;</div>
-          <label for="input">Insurance</label>
-          <select class="hero-search-form-find" id="insuranceList">
-            <option value=""></option>
-          </select>
-          <div class="divider">&nbsp;</div>
-          <label for="input">Gender</label>
-          <select class="hero-search-form-find" id="genderList">
-            <option value="" selected></option>
-            <option value="female">Female</option>
-            <option value="male">Male</option>
-          </select>
-          <div class="divider">&nbsp;</div>
-          <label for="search">Search</label>
-          <input id="search" class="hero-search-form-find" type="text" value="headache" required/>
-          <div class="divider">&nbsp;</div>
-          <label for="location">Near</label>
-          <input id="advLocation" class="hero-search-form-near" type="text" placeholder="current location"/>
-          <button id="advFindDoctorBtn" class="button"><i class="fa fa-search"></i></button>
+        <div class="searchBox">
+          <div id="basicSearch" class="hero-search-form">
+            <label for="search">Search</label>
+            <input id="search" class="hero-search-form-field" type="text" value="headache" required/>
+            <div class="divider">&nbsp;</div>
+            <label for="location">Near</label>
+            <input id="location" class="hero-search-form-field" type="text" placeholder="current location"/>
+            <button id="findDoctorBtn" class="button"><i class="fa fa-search"></i></button>
+          </div>
         </div>
-        <div class="hero-search-form">
-          <label for="input">Search</label>
-          <input id="input" class="hero-search-form-find" type="text" value="headache" required/>
-          <div class="divider">&nbsp;</div>
-          <label for="location">Near</label>
-          <input id="location" class="hero-search-form-near" type="text" placeholder="current location"/>
-          <button id="findDoctorBtn" class="button"><i class="fa fa-search"></i></button>
+        <div id="advSearch">
+          <div class="hero-search-form bottom-form">
+            <label for="input">Specialty</label>
+            <select class="hero-search-form-field" id="specList">
+              <option value=""></option>
+            </select>
+            <div class="divider">&nbsp;</div>
+            <label for="input">Insurance</label>
+            <select class="hero-search-form-field" id="insuranceList">
+              <option value=""></option>
+            </select>
+            <div class="divider">&nbsp;</div>
+            <label for="input">Gender</label>
+            <select class="hero-search-form-small" id="genderList">
+              <option value="" selected></option>
+              <option value="female">Female</option>
+              <option value="male">Male</option>
+            </select>
+          </div>
         </div>
+        <button id="advSearchBtn" class="button" type="button" name="button">advanced</button>
       </div>
     </header>
 
@@ -75,50 +71,5 @@
         </div>
       </div>
     </div>
-
   </body>
-
-  <!-- <body>
-    <div class="hero-section">
-      <div class="hero-section-text">
-        <h1>Doctor Finder</h1>
-        <h4 id="locationStatus"></h4>
-      </div>
-    </div>
-    <div class="row">
-      <div class="medium-12 columns">
-        <ul class="tabbed-search tabs" data-tabs id="tabbed-search">
-          <li class="tabs-title is-active"><a href="#specialty" >Specialty</a></li>
-          <li class="tabs-title"><a href="#medicalIssue">Medical Issue</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="tabbed-search-content tabs-content" data-tabs-content="tabbed-search">
-      <div class="tabs-panel is-active" id="specialty">
-        <div class="row">
-          <div class="small-12 medium-10 columns">
-            <label>
-              <select class="input-group-field" id="specList">
-              </select>
-            </label>
-          </div>
-          <div class="small-12 medium-2 columns">
-            <button id="findSpecBtn" type="button" class="primary button expanded search-button"><i class="fa fa-search"></i>Search By Specialy</button>
-          </div>
-        </div>
-      </div>
-      <div class="tabs-panel" id="medicalIssue">
-        <div class="row">
-          <div class="small-12 medium-10 columns">
-            <label>
-              <input type="text" id="issue" placeholder="Search by issue" value="Headache" required>
-            </label>
-          </div>
-          <div class="smal-12 medium-2 columns">
-            <button id="findDoctorBtn" type="button" class="primary button expanded search-button"><i class="fa fa-search"></i>Search By Issue</button>
-          </div>
-        </div>
-      </div>
-    </div>-->
-
 </html>

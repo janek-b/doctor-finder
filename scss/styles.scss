@@ -3,7 +3,9 @@
 $hero-search-height: 350px;
 
 .hero-search {
-  background: url('http://i.huffpost.com/gen/1596947/images/o-DOCTOR-facebook.jpg') center center no-repeat;
+  // background: url('http://www.thepillowofhealth.com/wp-content/uploads/2015/10/bigstock-Medical-physician-doctor-hands-84721406.jpg') center center no-repeat;
+  background: url('http://colmhealth.org/wp-content/uploads/2015/09/AdobeStock_66020892.jpg') center center no-repeat;
+  // background: url('http://i.huffpost.com/gen/1596947/images/o-DOCTOR-facebook.jpg') center center no-repeat;
   height: $hero-search-height;
   background-size: cover;
   display: flex;
@@ -17,11 +19,22 @@ $hero-search-height: 350px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  // justify-content: flex-end;
+}
+
+.hero-search-form.top-form {
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.hero-search-form.bottom-form {
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
 }
 
 .hero-search-form {
   display: flex;
-  width: 90%;
+  width: 100%;
   background: $white;
   padding: 0.25rem;
   border-radius: 5px;
@@ -51,8 +64,8 @@ $hero-search-height: 350px;
   }
 }
 
-.hero-search-form-find,
-.hero-search-form-near {
+.hero-search-form-field,
+.hero-search-form-small {
   border: 0;
   box-shadow: none;
 
@@ -61,19 +74,9 @@ $hero-search-height: 350px;
     box-shadow: none;
   }
 }
-
-
-// @mixin absolute-width($width) {
-//   margin-left: -($width/2);
-//   width: $width;
-// }
-//
-//
-// #locationStatus {
-//   position: absolute;
-//   left: 50%;
-//   @include absolute-width(200px);
-// }
+.hero-search-form-small {
+  width: 20%;
+}
 
 dl {
     padding: 0.5em;
@@ -90,7 +93,15 @@ dd {
   padding: 0 0 0.5em 0;
 }
 
+#advSearch {
+  width: 90%;
+  display: none;
+}
 
+.searchBox {
+  display: block;
+  width: 90%;
+}
 
 #details-panel {
   padding: 40px;
