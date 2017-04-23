@@ -16,8 +16,8 @@ function displayDoctorList(doctorList) {
       newPatient = '<span class="alert radius label">Not accepting new patients</span>';
     };
 
-    $("#doctorList").append(`<hr><li class="media-object"><div class="media-object-section middle"><a href="#" class="thumbnail toggle-panel">`+
-      `<img src="${doctor.img}" alt="thumbnail for doctor ${doctor.name}"></a></div>`+
+    $("#doctorList").append(`<hr><li class="media-object"><div class="media-object-section middle"><div class="thumbnail toggle-panel">`+
+      `<img src="${doctor.img}" alt="thumbnail for doctor ${doctor.name}"></div></div>`+
       `<div class="media-object-section main-section"><h4>${doctor.name}, ${doctor.title} ${newPatient}</h4>`+
       `<p>${specialties}</p></li>`);
 
@@ -50,7 +50,6 @@ function resetBtn() {
 
 $(function() {
   $(document).foundation();
-
 
   doctorObj.getSpecs().done(results => {
     results.forEach(result => $("#specList").append(`<option value="${result.uid}">${result.name}</option>`));

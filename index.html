@@ -9,6 +9,94 @@
     <title>Doctor Finder</title>
   </head>
   <body>
+    <div class="off-canvas-wrapper">
+      <div class="off-canvas-wrapper-inner" data-off-canvas-wrapper>
+
+
+
+    <div class="off-canvas position-right" id="offCanvas" data-transition="overlap" data-off-canvas>
+      <div id="details-panel">
+        <div id="doctorImg"></div>
+        <h2 id="doctorName"></h2>
+        <h4 id="doctorSpec"></h3>
+        <h3>Bio</h3>
+        <hr>
+        <p id="doctorBio"></p>
+        <h3>Education</h3>
+        <hr>
+        <dl id="doctorEdu" class="dl-horizontal"></dl>
+        <h3>Practices</h3>
+        <hr>
+        <div id="doctorPrac"></div>
+      </div>
+    </div>
+
+    <div class="off-canvas-content" data-off-canvas-content>
+      <header class="hero-search">
+        <div class="hero-search-content">
+          <div class="hero-search-text">
+          </div>
+          <div class="searchBox">
+            <div id="basicSearch" class="hero-search-form">
+              <label for="search">Search</label>
+              <input id="search" class="hero-search-form-field" type="text" value="headache" required/>
+              <div class="divider">&nbsp;</div>
+              <label for="location">Near</label>
+              <input id="location" class="hero-search-form-field" type="text" placeholder="current location"/>
+              <button id="findDoctorBtn" class="button"><i class="fa fa-search"></i></button>
+            </div>
+          </div>
+          <div id="advSearch">
+            <div class="hero-search-form bottom-form">
+              <label for="input">Specialty</label>
+              <select class="hero-search-form-field" id="specList">
+                <option value=""></option>
+              </select>
+              <div class="divider">&nbsp;</div>
+              <label for="input">Insurance</label>
+              <select class="hero-search-form-field" id="insuranceList">
+                <option value=""></option>
+              </select>
+              <div class="divider">&nbsp;</div>
+              <label for="input">Gender</label>
+              <select class="hero-search-form-small" id="genderList">
+                <option value="" selected></option>
+                <option value="female">Female</option>
+                <option value="male">Male</option>
+              </select>
+            </div>
+          </div>
+          <button id="advSearchBtn" class="button" type="button" name="button">advanced</button>
+        </div>
+      </header>
+      <div class="row">
+        <div id="doctorList" class="medium-12 columns">
+        </div>
+      </div>
+    </div>
+
+  </div>
+  </div>
+
+<!-- <div class="off-canvas-wrapper"> -->
+  <!-- <div class="off-canvas position-right" id="offCanvas" data-position="right" data-transition="overlap" data-off-canvas>
+    <div id="details-panel">
+      <div id="doctorImg"></div>
+      <h2 id="doctorName"></h2>
+      <h4 id="doctorSpec"></h3>
+      <h3>Bio</h3>
+      <hr>
+      <p id="doctorBio"></p>
+      <h3>Education</h3>
+      <hr>
+      <dl id="doctorEdu" class="dl-horizontal"></dl>
+      <h3>Practices</h3>
+      <hr>
+      <div id="doctorPrac"></div>
+    </div>
+  </div> -->
+
+  <!-- <div class="off-canvas-content" data-off-canvas-content>
     <header class="hero-search">
       <div class="hero-search-content">
         <div class="hero-search-text">
@@ -48,28 +136,12 @@
     </header>
 
     <div class="row">
-      <div class="off-canvas-wrapper">
-        <div class="off-canvas position-right" id="offCanvas" data-transition="overlap" data-off-canvas>
-          <div id="details-panel">
-            <div id="doctorImg"></div>
-            <h2 id="doctorName"></h2>
-            <h4 id="doctorSpec"></h3>
-            <h3>Bio</h3>
-            <hr>
-            <p id="doctorBio"></p>
-            <h3>Education</h3>
-            <hr>
-            <dl id="doctorEdu" class="dl-horizontal"></dl>
-            <h3>Practices</h3>
-            <hr>
-            <div id="doctorPrac"></div>
-          </div>
-        </div>
-        <div class="off-canvas-content" data-off-canvas-content>
+
           <div id="doctorList" class="medium-12 columns">
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
+
   </body>
 </html>
