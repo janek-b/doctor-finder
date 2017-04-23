@@ -84,6 +84,7 @@ $(function() {
         });
       } else if ((localStorage.getItem("currentLocation") === "disabled") && !(address)) {
         // Display error in search field
+        // Display no results found
         reject("enter address field");
         resetBtn();
       } else {
