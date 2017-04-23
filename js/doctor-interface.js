@@ -4,7 +4,6 @@ var getLocation = require('../js/location.js').getLocation;
 
 var doctorObj = new Doctor();
 
-
 function displayDoctorList(doctorList) {
   $("#doctorList").empty();
   doctorList.forEach(function(doctor) {
@@ -49,10 +48,9 @@ function resetBtn() {
   $("#findDoctorBtn").html('<i class="fa fa-search"></i>');
 }
 
-
 $(function() {
   $(document).foundation();
-  $("#advSearch").hide();
+
 
   doctorObj.getSpecs().done(results => {
     results.forEach(result => $("#specList").append(`<option value="${result.uid}">${result.name}</option>`));
@@ -102,7 +100,7 @@ $(function() {
 
   $("#findDoctorBtn").click(function() {
     $(this).html('<span aria-hidden="true"><i class="fa fa-spinner fa-lg fa-spin"></i></span>');
-    var address = $("#advLocation").val();
+    var address = $("#location").val();
     var spec = $("#specList").val();
     var insurance = $("#insuranceList").val();
     var gender = $("#genderList").val();
