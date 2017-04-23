@@ -1,11 +1,100 @@
+@import 'settings';
+
+$hero-search-height: 350px;
+
+.hero-search {
+  background: url('http://i.huffpost.com/gen/1596947/images/o-DOCTOR-facebook.jpg') center center no-repeat;
+  height: $hero-search-height;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+}
+
+.hero-search-content {
+  display: flex;
+  width: 100%;
+  height: $hero-search-height;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-search-form {
+  display: flex;
+  width: 90%;
+  background: $white;
+  padding: 0.25rem;
+  border-radius: 5px;
+  align-items: center;
+  box-shadow: 2px 2px 3px 1px #888888;
+
+  .divider {
+    background-color: $medium-gray;
+    width: 1px;
+  }
+
+  label {
+    margin-right: 0.75rem;
+    margin-left: 0.75rem;
+    color: $dark-gray;
+    font-weight: bold;
+  }
+
+  input,
+  .button {
+    margin-bottom: 0;
+  }
+
+  @include breakpoint(small only) {
+    width: 95%;
+  }
+}
+
+.hero-search-form-find,
+.hero-search-form-near {
+  border: 0;
+  box-shadow: none;
+
+  &:focus {
+    border: 0;
+    box-shadow: none;
+  }
+}
+
+
+// @mixin absolute-width($width) {
+//   margin-left: -($width/2);
+//   width: $width;
+// }
+//
+//
+// #locationStatus {
+//   position: absolute;
+//   left: 50%;
+//   @include absolute-width(200px);
+// }
+
+dl {
+    padding: 0.5em;
+}
+dt {
+  float: left;
+  clear: left;
+  width: 100px;
+  text-align: right;
+  font-weight: bold;
+}
+dd {
+  margin: 0 0 0 110px;
+  padding: 0 0 0.5em 0;
+}
+
+
+
 #details-panel {
   padding: 40px;
 }
 
-#locate {
-  display: none;
-}
-
-#search {
-  display: none;
+#doctorList {
+  min-height: calc(100vh - #{$hero-search-height});
 }

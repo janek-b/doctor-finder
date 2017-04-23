@@ -9,42 +9,22 @@
     <title>Doctor Finder</title>
   </head>
   <body>
-    <div class="row">
-      <div class="medium-10 medium-centered columns">
-        <div class="page-header">
-          <h1>Doctor Finder</h1>
+    <header class="hero-search">
+      <div class="hero-search-content">
+        <div class="hero-search-text">
+
+        </div>
+        <div class="hero-search-form">
+          <label for="input">Find</label>
+          <input id="input" class="hero-search-form-find" type="text" value="headache" required/>
+          <div class="divider">&nbsp;</div>
+          <label for="location">Near</label>
+          <input id="location" class="hero-search-form-near" type="text" placeholder="current location"/>
+          <button id="findDoctorBtn" class="button"><i class="fa fa-search"></i></button>
         </div>
       </div>
-    </div>
-    <div id="locate" class="row">
-      <div class="medium-10 medium-centered columns">
-        <div class="input-group">
-          <input class="input-group-field" type="text" id="location" placeholder="Enter your location" required>
-          <span class="input-group-button">
-            <button id="findLocationBtn" type="button" class="button"><span aria-hidden="true"><i class="fa fa-lg fa-search" aria-hidden="true"></i></span></button>
-          </span>
-        </div>
-      </div>
-    </div>
-    <div id="search" class="row">
-      <div class="medium-5 columns">
-        <div class="input-group">
-          <select class="input-group-field" id="specList">
-          </select>
-          <span class="input-group-button">
-            <button id="findSpecBtn" type="button" class="button"><span aria-hidden="true"><i class="fa fa-lg fa-search" aria-hidden="true"></i></span></button>
-          </span>
-        </div>
-      </div>
-      <div class="medium-5 columns">
-        <div class="input-group">
-          <input class="input-group-field" type="text" id="issue" placeholder="Search by issue" value="Headache" required>
-          <span class="input-group-button">
-            <button id="findDoctorBtn" type="button" class="button"><span aria-hidden="true"><i class="fa fa-lg fa-search" aria-hidden="true"></i></span></button>
-          </span>
-        </div>
-      </div>
-    </div>
+    </header>
+
     <div class="row">
       <div class="off-canvas-wrapper">
         <div class="off-canvas-absolute position-right" id="offCanvas" data-transition="overlap" data-off-canvas>
@@ -57,18 +37,59 @@
             <h3>Education</h3>
             <dl id="doctorEdu" class="dl-horizontal"></dl>
             <h3>Practices</h3>
-            <div id="doctorPrac">
-
-            </div>
+            <div id="doctorPrac"></div>
           </div>
         </div>
         <div class="off-canvas-content" data-off-canvas-content>
           <div id="doctorList" class="medium-12 columns">
-
           </div>
         </div>
-
       </div>
     </div>
+
   </body>
+
+  <!-- <body>
+    <div class="hero-section">
+      <div class="hero-section-text">
+        <h1>Doctor Finder</h1>
+        <h4 id="locationStatus"></h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="medium-12 columns">
+        <ul class="tabbed-search tabs" data-tabs id="tabbed-search">
+          <li class="tabs-title is-active"><a href="#specialty" >Specialty</a></li>
+          <li class="tabs-title"><a href="#medicalIssue">Medical Issue</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="tabbed-search-content tabs-content" data-tabs-content="tabbed-search">
+      <div class="tabs-panel is-active" id="specialty">
+        <div class="row">
+          <div class="small-12 medium-10 columns">
+            <label>
+              <select class="input-group-field" id="specList">
+              </select>
+            </label>
+          </div>
+          <div class="small-12 medium-2 columns">
+            <button id="findSpecBtn" type="button" class="primary button expanded search-button"><i class="fa fa-search"></i>Search By Specialy</button>
+          </div>
+        </div>
+      </div>
+      <div class="tabs-panel" id="medicalIssue">
+        <div class="row">
+          <div class="small-12 medium-10 columns">
+            <label>
+              <input type="text" id="issue" placeholder="Search by issue" value="Headache" required>
+            </label>
+          </div>
+          <div class="smal-12 medium-2 columns">
+            <button id="findDoctorBtn" type="button" class="primary button expanded search-button"><i class="fa fa-search"></i>Search By Issue</button>
+          </div>
+        </div>
+      </div>
+    </div>-->
+
 </html>
