@@ -43,8 +43,8 @@ body {
   background: $white;
   padding: 0.25rem;
   border-radius: 5px;
+  border-bottom: 0.01px solid $medium-gray;
   align-items: center;
-  // box-shadow: 2px 2px 3px 1px #888888;
 
   .divider {
     background-color: $medium-gray;
@@ -103,10 +103,8 @@ dd {
 }
 
 #advSearch {
-  width: 90%;
+  width: 100%;
   display: none;
-  box-shadow: 2px 2px 3px 1px #888888;
-  border-radius: 5px;
 }
 
 .searchBox {
@@ -126,4 +124,13 @@ dd {
 
 .card-shadow {
   box-shadow: 2px 2px 3px 1px #888888;
+}
+
+.tabs .tabs-title > a {
+  outline: 0;
+}
+
+#missingLocation {
+  cursor: default;
+  border-bottom: none;
 }

@@ -107,10 +107,7 @@ $(function() {
           resolve(`${latLng.lat}, ${latLng.lng}`);
         });
       } else if ((localStorage.getItem("currentLocation") === "disabled") && !(address)) {
-        // Display error in search field
-        // Display no results found
         reject("enter address field");
-        resetBtn();
       } else {
         navLocate.then(() => {
           if (localStorage.getItem("currentLocation") === localStorage.getItem("searchLocation")) {
@@ -124,6 +121,7 @@ $(function() {
   }
 
   $("#findDoctorBtn").click(function() {
+    $("#missingLocation").foundation('hide');
     $(this).html('<span aria-hidden="true"><i class="fa fa-spinner fa-lg fa-spin"></i></span>');
     var address = $("#location").val();
     var spec = $("#specList").val();
@@ -137,6 +135,10 @@ $(function() {
     if (search) {search = `query=${search}&`}
     processLocation(address).then(location => {
       doctorObj.advSearch(location, search, spec, insurance, gender).done(results => displayDoctorList(results));
+    }).catch(error => {
+      console.log(error);
+      resetBtn();
+      $("#missingLocation").foundation('show');
     });
   });
 

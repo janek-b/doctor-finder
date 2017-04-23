@@ -11,7 +11,7 @@
   <body>
     <div class="off-canvas position-right" id="offCanvas" data-transition="overlap" data-off-canvas>
       <div id="details-panel">
-        <div class="card">
+        <div class="card card-shadow">
           <div class="card-section float-left">
             <div id="doctorImg"></div>
           </div>
@@ -20,46 +20,36 @@
             <h4 id="doctorSpec"></h3>
           </div>
         </div>
-        <ul class="tabs" data-tabs id="details-tabs">
-          <li class="tabs-title is-active"><a href="#bio" aria-selected="true">Bio</a></li>
-          <li class="tabs-title"><a href="#edu">Education</a></li>
-          <li class="tabs-title"><a href="#practices">Practices</a></li>
-        </ul>
-        <div class="tabs-content" data-tabs-content="details-tabs">
-          <div class="tabs-panel is-active" id="bio">
-            <h3 class="subheader">Bio</h3>
-            <hr>
-            <p class="text-justify" id="doctorBio"></p>
-          </div>
-          <div class="tabs-panel" id="edu">
-            <h3 class="subheader">Education</h3>
-            <hr>
-            <dl id="doctorEdu" class="dl-horizontal"></dl>
-            <h3 class="subheader">Licenses</h3>
-            <hr>
-            <div id="doctorLicenses"></div>
-          </div>
-          <div class="tabs-panel" id="practices">
-            <h3 class="subheader">Practices</h3>
-            <hr>
-            <div id="doctorPrac"></div>
+        <div class="card card-shadow">
+          <div class="card-section">
+            <ul class="tabs" data-tabs id="details-tabs">
+              <li class="tabs-title is-active"><a href="#bio" aria-selected="true">Bio</a></li>
+              <li class="tabs-title"><a href="#edu">Education</a></li>
+              <li class="tabs-title"><a href="#practices">Practices</a></li>
+            </ul>
+            <div class="tabs-content" data-tabs-content="details-tabs">
+              <div class="tabs-panel is-active" id="bio">
+                <h3 class="subheader">Bio</h3>
+                <hr>
+                <p class="text-justify" id="doctorBio"></p>
+              </div>
+              <div class="tabs-panel" id="edu">
+                <h3 class="subheader">Education</h3>
+                <hr>
+                <dl id="doctorEdu" class="dl-horizontal"></dl>
+                <h3 class="subheader">Licenses</h3>
+                <hr>
+                <div id="doctorLicenses"></div>
+              </div>
+              <div class="tabs-panel" id="practices">
+                <h3 class="subheader">Practices</h3>
+                <hr>
+                <div id="doctorPrac"></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <!-- <div id="details-panel">
-        <div id="doctorImg"></div>
-        <h2 id="doctorName"></h2>
-        <h4 id="doctorSpec"></h3>
-        <h3>Bio</h3>
-        <hr>
-        <p id="doctorBio"></p>
-        <h3>Education</h3>
-        <hr>
-        <dl id="doctorEdu" class="dl-horizontal"></dl>
-        <h3>Practices</h3>
-        <hr>
-        <div id="doctorPrac"></div>
-      </div> -->
     </div>
     <div class="off-canvas-content" data-off-canvas-content>
       <header class="hero-search">
@@ -71,29 +61,29 @@
               <label for="search">Search</label>
               <input id="search" class="hero-search-form-field" type="text" value="headache" required/>
               <div class="divider">&nbsp;</div>
-              <label for="location">Near</label>
+              <label for="location"><span id="missingLocation" data-tooltip aria-haspopup="true" class="has-tip top"  data-disable-hover="true" tabindex="1" title="Please enter your location">Near</span></label>
               <input id="location" class="hero-search-form-field" type="text" placeholder="current location"/>
               <button id="findDoctorBtn" class="button"><i class="fa fa-search"></i></button>
             </div>
-          </div>
-          <div id="advSearch">
-            <div class="hero-search-form bottom-form">
-              <label for="input">Specialty</label>
-              <select class="hero-search-form-field" id="specList">
-                <option value=""></option>
-              </select>
-              <div class="divider">&nbsp;</div>
-              <label for="input">Insurance</label>
-              <select class="hero-search-form-field" id="insuranceList">
-                <option value=""></option>
-              </select>
-              <div class="divider">&nbsp;</div>
-              <label for="input">Gender</label>
-              <select class="hero-search-form-small" id="genderList">
-                <option value="" selected></option>
-                <option value="female">Female</option>
-                <option value="male">Male</option>
-              </select>
+            <div id="advSearch">
+              <div class="hero-search-form bottom-form">
+                <label for="input">Specialty</label>
+                <select class="hero-search-form-field" id="specList">
+                  <option value=""></option>
+                </select>
+                <div class="divider">&nbsp;</div>
+                <label for="input">Insurance</label>
+                <select class="hero-search-form-field" id="insuranceList">
+                  <option value=""></option>
+                </select>
+                <div class="divider">&nbsp;</div>
+                <label for="input">Gender</label>
+                <select class="hero-search-form-small" id="genderList">
+                  <option value="" selected></option>
+                  <option value="female">Female</option>
+                  <option value="male">Male</option>
+                </select>
+              </div>
             </div>
           </div>
           <button id="advSearchBtn" class="button" type="button" name="button">advanced</button>
