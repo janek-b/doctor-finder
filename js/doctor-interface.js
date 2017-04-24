@@ -138,14 +138,17 @@ $(function() {
     var gender = $("#genderList").val();
     var search = $("#search").val();
     $("#search").val("");
+    var name = $("#name").val();
+    $("#name").val("");
 
     if (spec) {spec = `specialty_uid=${spec}&`;}
     if (insurance) {insurance = `insurance_uid=${insurance}&`;}
     if (gender) {gender = `&gender=${gender}`;}
     if (search) {search = `query=${search}&`;}
+    if (name) {name = `name=${name}&`;}
 
     processLocation(address).then(location => {
-      doctorObj.advSearch(location, search, spec, insurance, gender).done(results => displayDoctorList(results));
+      doctorObj.advSearch(location, name, search, spec, insurance, gender).done(results => displayDoctorList(results));
     }).catch(error => {
       console.log(error);
       resetBtn();
