@@ -19,9 +19,9 @@ function displayDoctorList(doctorList) {
       newPatient = '<span class="alert radius label">Not accepting new patients</span>';
     }
 
-    $("#doctorList").append(`<div class="card card-shadow">`+
+    $("#doctorList").append(`<div class="card card-shadow toggle-panel">`+
       `<div class="card-section float-left">`+
-        `<div class="thumbnail toggle-panel">`+
+        `<div class="thumbnail">`+
           `<img src="${doctor.img}" alt="thumbnail for doctor ${doctor.name}">`+
       `</div></div>`+
       `<div class="card-section float-center">`+
