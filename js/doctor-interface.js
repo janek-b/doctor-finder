@@ -148,7 +148,13 @@ $(function() {
     if (name) {name = `name=${name}&`;}
 
     processLocation(address).then(location => {
-      doctorObj.advSearch(location, name, search, spec, insurance, gender).done(results => displayDoctorList(results));
+      doctorObj.advSearch(location, name, search, spec, insurance, gender).done(results => {
+        var locationSplit = location.split(', ');
+        var mapCenter = {lat: parseFloat(locationSplit[0]), lng: parseFloat(locationSplit[1])}
+        updateMap(results, mapCenter);
+        $("#mapCard").show();
+        displayDoctorList(results);
+      });
     }).catch(error => {
       console.log(error);
       resetBtn();

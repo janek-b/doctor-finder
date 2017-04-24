@@ -70,6 +70,7 @@ var processResponse = function (response) {
     }).sort((a, b) => {
       return a.distance - b.distance;
     });
+    foundDoctor.nearestLocation = foundDoctor.practices[0];
     doctors.push(foundDoctor);
   });
   return doctors;
