@@ -45,7 +45,7 @@ function displayDoctorList(doctorList) {
       if (doctor.licenses) {
         doctor.licenses.forEach(function(license) {
           var licenseInfo = Object.entries(license).reduce((acc, licenseField) => {
-            return acc + `<dt class="text-capitalize">${licenseField[0]}</dt><dd>${licenseField[1]}</dd>`;
+            return acc + `<dt class="text-capitalize">${licenseField[0].replace(/_/g, ' ')}</dt><dd>${licenseField[1]}</dd>`;
           }, "");
           $("#doctorLicenses").append(`<dl>${licenseInfo}</dl><hr>`);
         });
