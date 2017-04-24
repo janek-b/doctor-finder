@@ -8,7 +8,7 @@ Doctor.prototype.advSearch = function (location, search, spec, insurance, gender
     return processResponse(response);
   }).fail(function(error) {
     console.log(error);
-  })
+  });
 };
 
 Doctor.prototype.getSpecs = function () {
@@ -16,13 +16,13 @@ Doctor.prototype.getSpecs = function () {
     return response.data.sort(function(a, b) {
       var nameA = a.name.toUpperCase();
       var nameB = b.name.toUpperCase();
-      if (nameA < nameB) {return -1;};
-      if (nameA > nameB) {return 1;};
+      if (nameA < nameB) {return -1;}
+      if (nameA > nameB) {return 1;}
       return 0;
     });
   }).fail(function(error) {
     console.log(error);
-  })
+  });
 };
 
 Doctor.prototype.getInsurance = function () {
@@ -33,17 +33,17 @@ Doctor.prototype.getInsurance = function () {
       newProvider.name = provider.name;
       newProvider.uid = provider.plans.reduce((acc, plan) => acc + `,${plan.uid}`, "").slice(1);
       insurancePlans.push(newProvider);
-    })
+    });
     return insurancePlans.sort(function(a, b) {
       var nameA = a.name.toUpperCase();
       var nameB = b.name.toUpperCase();
-      if (nameA < nameB) {return -1;};
-      if (nameA > nameB) {return 1;};
+      if (nameA < nameB) {return -1;}
+      if (nameA > nameB) {return 1;}
       return 0;
     });
   }).fail(function(error) {
     console.log(error);
-  })
+  });
 };
 
 
@@ -67,9 +67,11 @@ var processResponse = function (response) {
       prac.address = practice.visit_address;
       prac.phone = practice.phones;
       return prac;
-    }).sort((a, b) => {a.distance - b.distance});
+    }).sort((a, b) => {
+      return a.distance - b.distance;
+    });
     doctors.push(foundDoctor);
-  })
+  });
   return doctors;
 };
 

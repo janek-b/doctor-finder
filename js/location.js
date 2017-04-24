@@ -18,9 +18,9 @@ var getLocation = function() {
       resolve(location);
     }, function(error) {
       reject(error);
-    }, options)
-  })
-}
+    }, options);
+  });
+};
 
 exports.getLocation = getLocation;
 exports.getLatLon = getLatLon;

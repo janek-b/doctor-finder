@@ -17,16 +17,17 @@ function displayDoctorList(doctorList) {
       newPatient = '<span class="success radius label">Accepting new patients</span>';
     } else {
       newPatient = '<span class="alert radius label">Not accepting new patients</span>';
-    };
+    }
 
-    $("#doctorList").append(`<div class="card card-shadow"><div class="card-section float-left"><div class="thumbnail toggle-panel">`+
-      `<img src="${doctor.img}" alt="thumbnail for doctor ${doctor.name}"></div></div>`+
-      `<div class="card-section float-center"><h4>${doctor.name}, ${doctor.title} ${newPatient}</h4>`+
-      `<p>${specialties}</p></div></div>`);
-    // $("#doctorList").append(`<hr><li class="media-object"><div class="media-object-section middle"><div class="thumbnail toggle-panel">`+
-    //   `<img src="${doctor.img}" alt="thumbnail for doctor ${doctor.name}"></div></div>`+
-    //   `<div class="media-object-section main-section"><h4>${doctor.name}, ${doctor.title} ${newPatient}</h4>`+
-    //   `<p>${specialties}</p></li>`);
+    $("#doctorList").append(`<div class="card card-shadow">`+
+      `<div class="card-section float-left">`+
+        `<div class="thumbnail toggle-panel">`+
+          `<img src="${doctor.img}" alt="thumbnail for doctor ${doctor.name}">`+
+      `</div></div>`+
+      `<div class="card-section float-center">`+
+        `<h4>${doctor.name}, ${doctor.title} ${newPatient}</h4>`+
+        `<p>${specialties}</p>`+
+      `</div></div>`);
 
     $('#doctorList .toggle-panel').last().click(function() {
       $("#doctorImg").html(`<img src="${doctor.img}" alt="thumbnail for doctor ${doctor.name}">`);
@@ -40,25 +41,31 @@ function displayDoctorList(doctorList) {
         $("#doctorEdu").html('<p>No Education Information Availabele</p>');
       }
 
-      $("#doctorLicenses").empty()
+      $("#doctorLicenses").empty();
       if (doctor.licenses) {
         doctor.licenses.forEach(function(license) {
-          var licenseInfo = Object.entries(license).reduce((acc, lice) => acc + `<dt>${lice[0]}</dt><dd>${lice[1]}</dd>`, "");
+          var licenseInfo = Object.entries(license).reduce((acc, licenseField) => {
+            return acc + `<dt class="text-capitalize">${licenseField[0]}</dt><dd>${licenseField[1]}</dd>`;
+          }, "");
           $("#doctorLicenses").append(`<dl>${licenseInfo}</dl><hr>`);
-        })
+        });
       } else {
         $("#doctorLicenses").append('<p>No License Information Available.');
       }
 
       $("#doctorPrac").empty();
       doctor.practices.forEach(function(practice) {
+        var pracNewPatient;
         if (practice.newPatients) {
-          var pracNewPatient = '<span class="success radius label">Accepting new patients</span>'
+          pracNewPatient = '<span class="success radius label">Accepting new patients</span>';
         } else {
-          var pracNewPatient = '<span class="alert radius label">Not accepting new patients</span>'
+          pracNewPatient = '<span class="alert radius label">Not accepting new patients</span>';
         }
-        var phone = practice.phone.reduce((acc, phone) => acc + `<dt class="text-capitalize">${phone.type.replace(/_/g, ' ')}</dt><dd>${phone.number.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3')}</dd>`, "");
-        $("#doctorPrac").append(`<h4>${practice.name} ${pracNewPatient}</h4><dl class="dl-horizontal">${phone}`+
+        var phoneInfo = practice.phone.reduce((acc, phone) => {
+            return acc + `<dt class="text-capitalize">${phone.type.replace(/_/g, ' ')}</dt><dd>${phone.number.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3')}</dd>`;
+          }, "");
+
+        $("#doctorPrac").append(`<h4>${practice.name} ${pracNewPatient}</h4><dl class="dl-horizontal">${phoneInfo}`+
             `<dt>Address</dt><dd>${practice.address.street} ${practice.address.city}, ${practice.address.state} ${practice.address.zip}</dd>`+
             `<dt>Distance</dt><dd>${practice.distance.toFixed(2)} miles</dd></dl>`);
       });
@@ -78,11 +85,12 @@ $(function() {
 
   doctorObj.getSpecs().done(results => {
     results.forEach(result => $("#specList").append(`<option value="${result.uid}">${result.name}</option>`));
-  })
+  });
+  // timeout needed to prevent too many request api error
   setTimeout(function() {
     doctorObj.getInsurance().done(results => {
       results.forEach(result => $("#insuranceList").append(`<option value="${result.uid}">${result.name}</option>`));
-    })
+    });
   }, 1000);
 
   if (navigator.geolocation) {
@@ -93,7 +101,7 @@ $(function() {
     }).catch(error => {
       localStorage.setItem("currentLocation", "disabled");
       $("#location").attr("placeholder", "Enter address or zipcode");
-    })
+    });
   } else {
     localStorage.setItem("currentLocation", "disabled");
     $("#location").attr("placeholder", "Enter address or zipcode");
@@ -107,7 +115,7 @@ $(function() {
           resolve(`${latLng.lat}, ${latLng.lng}`);
         });
       } else if ((localStorage.getItem("currentLocation") === "disabled") && !(address)) {
-        reject("enter address field");
+        reject("Location field required");
       } else {
         navLocate.then(() => {
           if (localStorage.getItem("currentLocation") === localStorage.getItem("searchLocation")) {
@@ -123,16 +131,19 @@ $(function() {
   $("#findDoctorBtn").click(function() {
     $("#missingLocation").foundation('hide');
     $(this).html('<span aria-hidden="true"><i class="fa fa-spinner fa-lg fa-spin"></i></span>');
+
     var address = $("#location").val();
     var spec = $("#specList").val();
     var insurance = $("#insuranceList").val();
     var gender = $("#genderList").val();
     var search = $("#search").val();
     $("#search").val("");
+
     if (spec) {spec = `specialty_uid=${spec}&`;}
-    if (insurance) {insurance = `insurance_uid=${insurance}&`}
-    if (gender) {gender = `&gender=${gender}`}
-    if (search) {search = `query=${search}&`}
+    if (insurance) {insurance = `insurance_uid=${insurance}&`;}
+    if (gender) {gender = `&gender=${gender}`;}
+    if (search) {search = `query=${search}&`;}
+
     processLocation(address).then(location => {
       doctorObj.advSearch(location, search, spec, insurance, gender).done(results => displayDoctorList(results));
     }).catch(error => {
@@ -149,6 +160,6 @@ $(function() {
     $("#specList").val("");
     $("#insuranceList").val("");
     $("#genderList").val("");
-  })
+  });
 
-})
+});
