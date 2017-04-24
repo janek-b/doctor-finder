@@ -5,14 +5,7 @@
 #### By _**Janek Brandt**_
 
 ## Description
-_This website simplifies the process of finding a doctor. A user can enter a medial issue and then receive a list of doctors in their area that can treat that issue. A user can also search for a doctor by name or by specialties._
-
-
-## Specifications
-
-| Behavior                   | Input Example     | Output Example    |
-| -------------------------- | -----------------:| -----------------:|
-
+_This website simplifies the process of finding a doctor. A user can enter a medial issue and then receive a list of doctors in their area that can treat that issue. A user can also search for a doctor by their specialties or the insurance they accept._
 
 
 ## Setup/Installation Requirements

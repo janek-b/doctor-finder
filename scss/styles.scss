@@ -3,14 +3,11 @@
 $hero-search-height: 350px;
 
 body {
-  // background: rgb(230, 230, 230);
   background: linear-gradient(to bottom right, rgba(170, 170, 170, 0), rgba(170, 170, 170, 1));
 }
 
 .hero-search {
-  // background: url('http://www.thepillowofhealth.com/wp-content/uploads/2015/10/bigstock-Medical-physician-doctor-hands-84721406.jpg') center center no-repeat;
   background: url('http://colmhealth.org/wp-content/uploads/2015/09/AdobeStock_66020892.jpg') center center no-repeat;
-  // background: url('http://i.huffpost.com/gen/1596947/images/o-DOCTOR-facebook.jpg') center center no-repeat;
   height: $hero-search-height;
   background-size: cover;
   display: flex;
@@ -24,7 +21,6 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  // justify-content: flex-end;
 }
 
 .hero-search-form.top-form {
